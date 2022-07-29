@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: ENC(GlVPOS2yj27G8KlmPkm1bIcNh+lTPcZaB58VmhfoTgUvxvbxN4ry0WdbWnUVA3z8C5lmgMpQ4u29Qkm7knvh//gTjP44A6gWyJRk2FsPCywRjpjkme/K7pIshCMpecdyORIn9Q9DSRGVZi1LodfGV4vqONmzVSM89ohu1n6iJ01tbq8hO1Eqq/KuVwS5b4nLXzQ/dG6nctHIaa8IO3SIEQ==)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ENC(ekx8uDXPHHxhywkRW7tkMw==)
+    password: ENC(aYt0+Ypk//L/ka7aefbRtGI87NUdjXYs)
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # hibernate:
+      # ddl-auto: create # 스프링부트가 실행될 때마다 실행.SessionFactory가 시작될때 Drop, Create, Alter 종료될때 Drop
+    properties:
+      hibernate: #콘솔창에서 쿼리문을 잘 보기 위한 설정
+        format_sql: true
+        show_sql: true
+    # Spring boot 2.5.x 버전 이후 부터는 프로젝트 실행 시 data.sql로 데이터를 초기화 시키기 위해서는 spring.jpa.defer-datasource-initialization=true로 설정해주어야 한다.
+    # defer-datasource-initialization: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    kdh: DEBUG
+
+jwt:
+  header: Authorization
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+server:
+  error:
+    include-exception: false      # Response 에 Exception 을 표시할지
+    include-message: always       # Response 에 Exception Message 를 표시할지 (never | always | on_param)
+    include-stacktrace: on_param  # Response 에 Stack Trace 를 표시할지 (never | always | on_param) on_trace_params 은 deprecated
+    whitelabel.enabled: false     # 에러 발생 시 Spring 기본 에러 페이지 노출 여부
+
