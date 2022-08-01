@@ -7,6 +7,6 @@ import java.util.*
 
 interface UserRepository : JpaRepository<User?, Long?> {
     @EntityGraph(attributePaths = ["authorities"])
-    fun findOneWithAuthoritiesById(id: String?): User?
-    fun findOneByIdx(idx: Long?): User?
+    fun findOneWithAuthoritiesById(id: String): User?
+    fun findOneByIdx(idx: Long): User?
 }

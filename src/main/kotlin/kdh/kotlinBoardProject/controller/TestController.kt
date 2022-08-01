@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/test")
-class TestController {
-
-    private val userService:UserService? = null
+class TestController(private val userService:UserService) {
 
     @GetMapping("hello")
     fun test(@RequestParam str: String): ResponseEntity<String> {

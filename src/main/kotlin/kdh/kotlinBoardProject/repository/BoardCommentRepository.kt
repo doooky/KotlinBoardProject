@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface BoardCommentRepository : JpaRepository<BoardComment?, Long?> {
-    fun findByBoardIdx(boardIdx: Long?, pageable: Pageable?): Page<BoardComment?>?
-    fun findOneByIdx(idx: Long?): BoardComment?
+    fun findByBoardIdx(boardIdx: Long, pageable: Pageable): Page<BoardComment>?
+    fun findOneByIdx(idx: Long): BoardComment?
 }

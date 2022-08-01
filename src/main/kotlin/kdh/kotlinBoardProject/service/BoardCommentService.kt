@@ -15,21 +15,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class BoardCommentService(
-    boardCommentRepository: BoardCommentRepository,
-    boardRepository: BoardRepository,
-    userRepository: UserRepository
+    private val boardCommentRepository: BoardCommentRepository,
+    private val boardRepository: BoardRepository,
+    private val userRepository: UserRepository
 ) {
-    private var boardCommentRepository: BoardCommentRepository? = null
-    private var boardRepository: BoardRepository? = null
-    private var userRepository: UserRepository? = null
 
-    init {
-        this.boardCommentRepository = boardCommentRepository
-        this.boardRepository = boardRepository
-        this.userRepository = userRepository
-    }
-
-    fun getBoardCommentList(boardIdx: Long?, size: Int, page: Int): Page<BoardComment?>? {
+    fun getBoardCommentList(boardIdx: Long, size: Int, page: Int): Page<BoardComment>? {
         val pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "idx"))
         return boardCommentRepository!!.findByBoardIdx(boardIdx, pageRequest)
     }
@@ -46,7 +37,7 @@ class BoardCommentService(
         return boardCommentRepository!!.save(boardComment)
     }
 
-    fun updateBoardComment(idx: Long?, dto: UpdateBoardCommentDto): BoardComment {
+    fun updateBoardComment(idx: Long, dto: UpdateBoardCommentDto): BoardComment {
         val boardComment = boardCommentRepository!!.findOneByIdx(idx)?:throw CustomException(ErrorCode.BOARD_COMMENT_NOT_FOUND)
         boardComment.content = if (dto.content != null) dto.content else boardComment.content
         return boardComment

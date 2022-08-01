@@ -55,7 +55,7 @@ class CategoryService(
         return categoryRepository!!.findOneByIdx(idx)?:throw CustomException(ErrorCode.CATEGORY_NOT_FOUND)
     }
 
-    private fun checkDuplicateCategory(categoryName: String?) {
+    private fun checkDuplicateCategory(categoryName: String) {
         val category = categoryRepository!!.findOneByCategoryName(categoryName)
         if (!category!!.isEmpty) {
             throw CustomException(ErrorCode.DUPLICATE_RESOURCE)

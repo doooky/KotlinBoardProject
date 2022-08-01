@@ -12,15 +12,11 @@ import java.util.stream.Collectors
 
 @RestController
 @RequestMapping("/api/boardComment")
-class BoardCommentController(boardCommentService: BoardCommentService) {
-    private var boardCommentService: BoardCommentService? = null
-    init {
-        this.boardCommentService = boardCommentService
-    }
+class BoardCommentController(private val  boardCommentService: BoardCommentService) {
     @GetMapping("{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     fun getBoardCommentList(
-            @PathVariable id: Long?,
+            @PathVariable id: Long,
             @RequestParam(value = "size", defaultValue = "10") size: Int,
             @RequestParam(value = "page", defaultValue = "0") page: Int
     ): ResponseEntity<List<BoardCommentDto>> {
@@ -39,7 +35,7 @@ class BoardCommentController(boardCommentService: BoardCommentService) {
 
     @PutMapping("{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    fun updateBoardComment(@PathVariable id: Long?, @RequestBody dto: UpdateBoardCommentDto): ResponseEntity<BoardCommentDto> {
+    fun updateBoardComment(@PathVariable id: Long, @RequestBody dto: UpdateBoardCommentDto): ResponseEntity<BoardCommentDto> {
         val boardComment = boardCommentService!!.updateBoardComment(id, dto)
         val result = BoardCommentDto(boardComment)
         return ResponseEntity.ok(result)

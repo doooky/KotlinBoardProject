@@ -10,7 +10,7 @@ interface BoardRepository : JpaRepository<Board?, Long?> {
     override fun findAll(pageable: Pageable): Page<Board?>
 
     // 대소문자 무시하고 게시물 제목 검색
-    fun findByCategoryIdxAndTitleContainingIgnoreCase(categoryIdx: Long?, title: String?, pageable: Pageable): Page<Board>?
+    fun findByCategoryIdxAndTitleContainingIgnoreCase(categoryIdx: Long, title: String?, pageable: Pageable): Page<Board>?
     fun findByCategoryIdx(categoryIdx: Long, pageable: Pageable): Page<Board>?
-    fun findOneByIdx(idx: Long?): Board?
+    fun findOneByIdx(idx: Long): Board?
 }

@@ -10,12 +10,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/user")
-class UserController(userService: UserService) {
-    private val userService: UserService
-
-    init {
-        this.userService = userService
-    }
+class UserController(private val userService: UserService) {
 
     @PostMapping("/signup")
     fun signup(

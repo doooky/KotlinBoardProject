@@ -11,12 +11,8 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/category")
-class CategoryController(categoryService: CategoryService) {
-    private var categoryService: CategoryService? = null
+class CategoryController(private val categoryService: CategoryService) {
 
-    init {
-        this.categoryService = categoryService
-    }
     @get:PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @get:GetMapping("/")
     val categoryList: ResponseEntity<List<CategoryListDto?>?>

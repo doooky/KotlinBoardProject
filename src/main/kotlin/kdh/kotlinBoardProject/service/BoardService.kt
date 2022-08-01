@@ -18,19 +18,10 @@ import java.util.*
 
 @Service
 class BoardService(
-    boardRepository: BoardRepository,
-    userRepository: UserRepository,
-    categoryRepository: CategoryRepository
+    private val boardRepository: BoardRepository,
+    private val userRepository: UserRepository,
+    private val categoryRepository: CategoryRepository
 ) {
-    private var boardRepository: BoardRepository? = null
-    private var userRepository: UserRepository? = null
-    private var categoryRepository: CategoryRepository? = null
-
-    init{
-        this.boardRepository = boardRepository
-        this.userRepository = userRepository
-        this.categoryRepository = categoryRepository
-    }
 
     fun getBoardList(categoryIdx: Long, size: Int, page: Int): Page<Board>? {
         val pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "idx"))
@@ -42,7 +33,7 @@ class BoardService(
         return boardRepository!!.findByCategoryIdxAndTitleContainingIgnoreCase(categoryIdx, title, pageRequest)
     }
 
-    fun getBoard(idx: Long?): Board? {
+    fun getBoard(idx: Long): Board? {
         val board = boardRepository!!.findOneByIdx(idx)?:throw CustomException(ErrorCode.CATEGORY_NOT_FOUND)
         return board
     }

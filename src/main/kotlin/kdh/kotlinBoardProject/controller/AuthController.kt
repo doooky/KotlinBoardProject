@@ -15,13 +15,9 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/auth")
-class AuthController(tokenProvider: TokenProvider, authenticationManagerBuilder: AuthenticationManagerBuilder){
-    private val tokenProvider: TokenProvider
-    private val authenticationManagerBuilder: AuthenticationManagerBuilder
-    init{
-        this.tokenProvider = tokenProvider
-        this.authenticationManagerBuilder = authenticationManagerBuilder
-    }
+class AuthController(
+    private val tokenProvider: TokenProvider,
+    private val authenticationManagerBuilder: AuthenticationManagerBuilder){
 
     @PostMapping("/authenticate")
     fun authorize(@RequestBody loginDto: @Valid LoginDto?): ResponseEntity<TokenDto> {

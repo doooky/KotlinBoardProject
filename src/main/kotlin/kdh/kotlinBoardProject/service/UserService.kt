@@ -14,17 +14,10 @@ import java.util.*
 
 @Service
 open class UserService(
-    userRepository: UserRepository,
-    passwordEncoder: PasswordEncoder,
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder,
 ) {
-    private val userRepository: UserRepository
-    private val passwordEncoder: PasswordEncoder
     private val securityUtil: SecurityUtil = SecurityUtil()
-
-    init {
-        this.userRepository = userRepository
-        this.passwordEncoder = passwordEncoder
-    }
 
     @Transactional
     open fun signup(userDto: UserDto?): User {

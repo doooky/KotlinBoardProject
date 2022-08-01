@@ -14,17 +14,14 @@ import java.util.stream.Collectors
 
 @RestController
 @RequestMapping("/api/board")
-class BoardController(boardService: BoardService) {
-    private var boardService: BoardService? = null
-    init {
-        this.boardService = boardService
-    }
+class BoardController(private val boardService: BoardService) {
+
     @GetMapping("list/{categoryIdx}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     fun getBoardList(
-            @PathVariable(value = "categoryIdx") categoryIdx: Long?,
+            @PathVariable(value = "categoryIdx") categoryIdx: Long,
             @RequestParam(value = "size", defaultValue = "10") size: Int,
-            @RequestParam(value = "page", defaultValue = "0") page: Int): Page<Board?>? {
+            @RequestParam(value = "page", defaultValue = "0") page: Int): Page<Board>? {
         val boardList = boardService!!.getBoardList(categoryIdx, size, page)
         val result = boardList!!.stream()
                 .map { o: Board? -> BoardListDto(o) }
@@ -35,7 +32,7 @@ class BoardController(boardService: BoardService) {
     @GetMapping("list/{categoryIdx}/search")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     fun getBoardListByTitle(
-            @PathVariable(value = "categoryIdx") categoryIdx: Long?,
+            @PathVariable(value = "categoryIdx") categoryIdx: Long,
             @RequestParam(value = "size", defaultValue = "10") size: Int,
             @RequestParam(value = "page", defaultValue = "0") page: Int,
             @RequestParam title: String?): List<BoardListDto> {
@@ -47,7 +44,7 @@ class BoardController(boardService: BoardService) {
 
     @GetMapping("{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    fun getBoard(@PathVariable(value = "id") id: Long?): ResponseEntity<BoardDto> {
+    fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto> {
         val result = BoardDto(boardService!!.getBoard(id))
         return ResponseEntity.ok(result)
     }
@@ -61,7 +58,7 @@ class BoardController(boardService: BoardService) {
 
     @PutMapping("{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    fun updateBoard(@PathVariable(value = "id") id: Long?, @RequestBody dto: UpdateBoardDto): ResponseEntity<BoardDto> {
+    fun updateBoard(@PathVariable(value = "id") id: Long, @RequestBody dto: UpdateBoardDto): ResponseEntity<BoardDto> {
         val result = BoardDto(boardService!!.updateBoard(id, dto))
         return ResponseEntity.ok(result)
     }

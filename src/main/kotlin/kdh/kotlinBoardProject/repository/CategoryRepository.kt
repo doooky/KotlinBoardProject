@@ -6,6 +6,6 @@ import java.util.*
 
 interface CategoryRepository : JpaRepository<Category?, Long?> {
     override fun findAll(): List<Category?>
-    fun findOneByCategoryName(categoryName: String?): Optional<Category?>?
-    fun findOneByIdx(idx: Long?): Category?
+    fun findOneByCategoryName(categoryName: String): Optional<Category>?
+    fun findOneByIdx(idx: Long): Category?
 }
