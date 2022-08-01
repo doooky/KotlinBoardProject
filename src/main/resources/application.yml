@@ -32,6 +32,7 @@ jwt:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+    password: toy_project_key
 
 server:
   error:

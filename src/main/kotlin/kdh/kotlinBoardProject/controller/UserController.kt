@@ -1,7 +1,9 @@
 package kdh.kotlinBoardProject.controller
 
-import kdh.kotlinBoardProject.dto.user.UserDto
+import kdh.kotlinBoardProject.dto.user.SignUpDto
+import kdh.kotlinBoardProject.dto.user.UserRequestDto
 import kdh.kotlinBoardProject.entity.User
+import kdh.kotlinBoardProject.mapper.UserMapper
 import kdh.kotlinBoardProject.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -10,13 +12,16 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/user")
-class UserController(private val userService: UserService) {
+class UserController(
+    private val userService: UserService,
+    private val userMapper: UserMapper
+    ) {
 
     @PostMapping("/signup")
     fun signup(
-        @RequestBody userDto: @Valid UserDto?
+        @RequestBody userRequestDto: UserRequestDto
     ): ResponseEntity<User?> {
-        return ResponseEntity.ok(userService!!.signup(userDto))
+        return ResponseEntity.ok(userService!!.signup(userMapper.requestToSignUpDto(userRequestDto)))
     }
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -27,7 +32,7 @@ class UserController(private val userService: UserService) {
 
     @GetMapping("{username}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    fun getUserInfo(@PathVariable username: String?): ResponseEntity<User> {
+    fun getUserInfo(@PathVariable username: String): ResponseEntity<User> {
         return ResponseEntity.ok(userService!!.getUserWithAuthorities(username)!!)
     }
 }
