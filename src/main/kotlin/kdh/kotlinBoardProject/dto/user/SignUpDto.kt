@@ -2,7 +2,6 @@ package kdh.kotlinBoardProject.dto.user
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import kdh.kotlinBoardProject.entity.Authority
-import org.springframework.security.crypto.password.PasswordEncoder
 import javax.validation.constraints.Size
 
 

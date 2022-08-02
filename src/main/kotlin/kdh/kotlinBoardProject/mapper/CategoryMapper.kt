@@ -11,13 +11,7 @@ import org.mapstruct.*
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface CategoryMapper {
-    @Mappings(
-        Mapping(source = "idx", target = "categoryIdx")
-    )
     fun toListDto(category: Category?): CategoryListDto
-    @Mappings(
-        Mapping(source = "idx", target = "categoryIdx")
-    )
     fun toDto(category: Category?): CategoryDto
     fun toDomain(categoryDto: CategoryDto): Category
 
