@@ -23,11 +23,12 @@ class User(
 
     @JsonIgnore
     @Column(name = "activated")
-    val activated: Boolean = false,
+    var activated: Boolean? = null,
 
     @ManyToMany(cascade = [CascadeType.ALL])
     @JoinTable(name = "user_authority", joinColumns = [JoinColumn(name = "user_idx", referencedColumnName = "idx")], inverseJoinColumns = [JoinColumn(name = "authority_idx", referencedColumnName = "idx")])
-    val authorities: Set<Authority>? = null //    @OneToMany(mappedBy = "user")
+    val authorities: Set<Authority>? = null //
+    // @OneToMany(mappedBy = "user")
     //    private List<Category> categoryList = new ArrayList<>();
     //    @OneToMany(mappedBy = "user")
     //    private List<Board> boardList = new ArrayList<>();
