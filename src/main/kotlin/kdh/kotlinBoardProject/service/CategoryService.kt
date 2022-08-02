@@ -7,6 +7,7 @@ import kdh.kotlinBoardProject.dto.category.ResponseCategoryDto
 import kdh.kotlinBoardProject.entity.Category
 import kdh.kotlinBoardProject.exception.CustomException
 import kdh.kotlinBoardProject.exception.ErrorCode
+import kdh.kotlinBoardProject.mapper.CategoryMapper
 import kdh.kotlinBoardProject.repository.CategoryRepository
 import kdh.kotlinBoardProject.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -15,11 +16,12 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class CategoryService(
     private val categoryRepository: CategoryRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val categoryMapper: CategoryMapper
 ) {
 
     fun categoryList(): List<CategoryListDto> {
-        return categoryRepository!!.findAll().map { CategoryListDto(it) }
+        return categoryRepository!!.findAll().map { categoryMapper.toListDto(it) }
     }
 
     @Transactional
@@ -31,22 +33,23 @@ class CategoryService(
             description = categoryDto.description,
             user = user
         )
-        categoryRepository!!.save(category)
-        return CategoryDto(category)
+        return categoryMapper.toDto(categoryRepository!!.save(category))
     }
 
     @Transactional
     fun updateCategory(idx: Long, dto: ResponseCategoryDto): CategoryDto {
         val category = checkEmptyCategory(idx)
-        category.categoryName = if (dto.categoryName != null) dto.categoryName else category.categoryName
-        category.description = if (dto.description != null) dto.description else category.description
-        category.updatedAt()
-        return CategoryDto(category)
+//        category.categoryName = if (dto.categoryName != null) dto.categoryName else category.categoryName
+//        category.description = if (dto.description != null) dto.description else category.description
+//        category.updatedAt()
+//        return categoryMapper.toDto(category)
+        categoryMapper.update(dto, category)
+        return categoryMapper.toDto(category)
     }
 
     @Transactional
     fun deleteCategory(idx: Long): DeleteCategoryDto {
-        val category = CategoryDto(checkEmptyCategory(idx))
+        val category = categoryMapper.toDto(checkEmptyCategory(idx))
         categoryRepository!!.deleteById(idx)
         return DeleteCategoryDto("삭제 성공", category)
     }

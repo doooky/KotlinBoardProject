@@ -8,12 +8,12 @@ class BoardCommentDto(boardComment: BoardComment?) {
     var idx: Long?
     var content: String?
     var user: UserResponseDto? = null
-    var board: BoardListDto?
+    var board: BoardListDto? = null
 
     init {
         idx = boardComment?.idx
         content = boardComment?.content
         //user = UserResponseDto(boardComment?.user)
-        board = BoardListDto(boardComment?.board)
+        // board = BoardListDto(boardComment?.board)
     }
 }

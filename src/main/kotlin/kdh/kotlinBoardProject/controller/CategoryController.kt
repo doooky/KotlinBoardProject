@@ -20,19 +20,19 @@ class CategoryController(private val categoryService: CategoryService) {
 
     @PostMapping("/")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    fun createCategory(@RequestBody dto: ResponseCategoryDto): ResponseEntity<CategoryDto?> {
+    fun create(@RequestBody dto: ResponseCategoryDto): ResponseEntity<CategoryDto?> {
         return ResponseEntity.ok(categoryService!!.createCategory(dto))
     }
 
     @PutMapping("{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    fun updateCategory(@PathVariable("id") id: Long, @RequestBody dto: ResponseCategoryDto): ResponseEntity<CategoryDto?> {
+    fun update(@PathVariable("id") id: Long, @RequestBody dto: ResponseCategoryDto): ResponseEntity<CategoryDto?> {
         return ResponseEntity.ok(categoryService!!.updateCategory(id, dto))
     }
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    fun deleteCategory(@PathVariable("id") id: Long): ResponseEntity<DeleteCategoryDto?> {
+    fun delete(@PathVariable("id") id: Long): ResponseEntity<DeleteCategoryDto?> {
         return ResponseEntity.ok(categoryService!!.deleteCategory(id))
     }
 }

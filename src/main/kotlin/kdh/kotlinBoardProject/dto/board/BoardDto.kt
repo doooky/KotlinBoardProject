@@ -10,13 +10,13 @@ class BoardDto(board: Board?) {
     var title: String?
     var content: String?
     var createdAt: LocalDateTime?
-    var category: CategoryListDto
+    var category: CategoryListDto? = null
 
     init {
         idx = board!!.idx
         title = board!!.title
         content = board!!.content
         createdAt = board!!.createdAt
-        this.category = CategoryListDto(board!!.category)
+        //this.category = CategoryListDto(board!!.category)
     }
 }
