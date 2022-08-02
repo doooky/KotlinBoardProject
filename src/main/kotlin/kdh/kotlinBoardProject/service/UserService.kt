@@ -1,6 +1,7 @@
 package kdh.kotlinBoardProject.service
 
 import kdh.kotlinBoardProject.dto.user.SignUpDto
+import kdh.kotlinBoardProject.dto.user.UserResponseDto
 import kdh.kotlinBoardProject.entity.User
 import kdh.kotlinBoardProject.exception.DuplicateMemberException
 import kdh.kotlinBoardProject.mapper.UserMapper
@@ -19,7 +20,7 @@ class UserService(
     private val securityUtil: SecurityUtil = SecurityUtil()
 
     @Transactional
-    fun signup(signUpDto: SignUpDto?): User {
+    fun signup(signUpDto: SignUpDto?): UserResponseDto {
         if(userRepository.findOneWithAuthoritiesById(signUpDto!!.id) != null){
             throw DuplicateMemberException("이미 가입되어 있는 유저입니다.")
         }
@@ -30,7 +31,7 @@ class UserService(
             activated = signUpDto.activated,
             authorities = signUpDto.authorities
         )
-        return userRepository.save(user)
+        return userMapper.toDto(userRepository.save(user))
     }
 
     @Transactional(readOnly = true)

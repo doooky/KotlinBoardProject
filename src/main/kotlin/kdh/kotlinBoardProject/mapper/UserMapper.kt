@@ -2,6 +2,7 @@ package kdh.kotlinBoardProject.mapper
 
 import kdh.kotlinBoardProject.dto.user.SignUpDto
 import kdh.kotlinBoardProject.dto.user.UserRequestDto
+import kdh.kotlinBoardProject.dto.user.UserResponseDto
 import kdh.kotlinBoardProject.entity.User
 import org.mapstruct.*
 
@@ -12,7 +13,7 @@ import org.mapstruct.*
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface UserMapper {
     fun requestToSignUpDto(userRequestDto: UserRequestDto): SignUpDto
-    fun toDto(user: User): SignUpDto
+    fun toDto(user: User): UserResponseDto
     fun toDomain(signUpDto: SignUpDto): User
 
     // null value 는 dto -> entity 업데이트시에 적용하지 않는다.

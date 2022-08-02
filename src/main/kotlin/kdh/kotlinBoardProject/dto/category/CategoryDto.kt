@@ -8,12 +8,12 @@ class CategoryDto(category: Category) {
     var categoryIdx: Long?
     var categoryName: String?
     var description: String?
-    var user: UserResponseDto
+    var user: UserResponseDto? = null
 
     init {
         categoryIdx = category.idx
         categoryName = category.categoryName
         description = category.description
-        user = UserResponseDto(category.user)
+        //user = UserResponseDto(category.user)
     }
 }

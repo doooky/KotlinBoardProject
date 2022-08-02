@@ -10,7 +10,6 @@ class BoardDto(board: Board?) {
     var title: String?
     var content: String?
     var createdAt: LocalDateTime?
-    var user: UserResponseDto
     var category: CategoryListDto
 
     init {
@@ -18,7 +17,6 @@ class BoardDto(board: Board?) {
         title = board!!.title
         content = board!!.content
         createdAt = board!!.createdAt
-        user = UserResponseDto(board!!.user)
         this.category = CategoryListDto(board!!.category)
     }
 }

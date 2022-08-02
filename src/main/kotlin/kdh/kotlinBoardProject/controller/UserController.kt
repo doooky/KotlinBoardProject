@@ -2,6 +2,7 @@ package kdh.kotlinBoardProject.controller
 
 import kdh.kotlinBoardProject.dto.user.SignUpDto
 import kdh.kotlinBoardProject.dto.user.UserRequestDto
+import kdh.kotlinBoardProject.dto.user.UserResponseDto
 import kdh.kotlinBoardProject.entity.User
 import kdh.kotlinBoardProject.mapper.UserMapper
 import kdh.kotlinBoardProject.service.UserService
@@ -20,7 +21,7 @@ class UserController(
     @PostMapping("/signup")
     fun signup(
         @RequestBody userRequestDto: UserRequestDto
-    ): ResponseEntity<User?> {
+    ): ResponseEntity<UserResponseDto?> {
         return ResponseEntity.ok(userService!!.signup(userMapper.requestToSignUpDto(userRequestDto)))
     }
 

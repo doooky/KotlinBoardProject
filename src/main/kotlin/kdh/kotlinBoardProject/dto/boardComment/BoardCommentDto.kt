@@ -7,13 +7,13 @@ import kdh.kotlinBoardProject.entity.BoardComment
 class BoardCommentDto(boardComment: BoardComment?) {
     var idx: Long?
     var content: String?
-    var user: UserResponseDto?
+    var user: UserResponseDto? = null
     var board: BoardListDto?
 
     init {
         idx = boardComment?.idx
         content = boardComment?.content
-        user = UserResponseDto(boardComment?.user)
+        //user = UserResponseDto(boardComment?.user)
         board = BoardListDto(boardComment?.board)
     }
 }
