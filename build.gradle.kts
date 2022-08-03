@@ -42,6 +42,8 @@ dependencies {
 	// mapstruct
 	implementation("org.mapstruct:mapstruct:1.5.1.Final")
 	kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
+	//flyway
+	implementation("org.flywaydb:flyway-core")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
