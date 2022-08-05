@@ -10,6 +10,7 @@ import kdh.kotlinBoardProject.exception.ErrorCode
 import kdh.kotlinBoardProject.mapper.BoardMapper
 import kdh.kotlinBoardProject.repository.BoardRepository
 import kdh.kotlinBoardProject.repository.CategoryRepository
+import kdh.kotlinBoardProject.repository.QBoardRepository
 import kdh.kotlinBoardProject.repository.UserRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -23,7 +24,8 @@ class BoardService(
     private val boardRepository: BoardRepository,
     private val userRepository: UserRepository,
     private val categoryRepository: CategoryRepository,
-    private val boardMapper: BoardMapper
+    private val boardMapper: BoardMapper,
+    private val qBoardRepository: QBoardRepository
 ) {
 
     fun getBoardList(categoryIdx: Long, size: Int, page: Int): Page<BoardListDto>? {
@@ -67,7 +69,7 @@ class BoardService(
 
     @Transactional
     fun deleteBoard(idx: Long): BoardDto {
-        val board = boardRepository!!.findOneByIdx(idx)?:throw CustomException(ErrorCode.BOARD_NOT_FOUND)
+        val board = boardRepository!!.findByIdOrNull(idx)?:throw CustomException(ErrorCode.BOARD_NOT_FOUND)
         boardRepository!!.deleteById(idx)
         return boardMapper.toDto(board)
     }

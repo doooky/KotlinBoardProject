@@ -13,6 +13,9 @@ group = "kdh"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+val querydslVersion = "5.0.0"
+val mapstructVersion = "1.5.2.Final"
+
 allOpen {
 	annotation("javax.persistence.Entity") // @Entity가 붙은 클래스에 한해서만 all open 플러그인을 적용
 }
@@ -39,11 +42,21 @@ dependencies {
 	implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("io.springfox:springfox-swagger-ui:3.0.0")
+
 	// mapstruct
-	implementation("org.mapstruct:mapstruct:1.5.1.Final")
-	kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
+	implementation("org.mapstruct:mapstruct:$mapstructVersion")
+	kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
+
 	//flyway
-	implementation("org.flywaydb:flyway-core")
+	implementation("org.flywaydb:flyway-core:7.15.0")
+
+	//querydsl
+	implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+	kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
+	kapt("org.springframework.boot:spring-boot-configuration-processor")
+	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -52,6 +65,8 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 }
+
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
